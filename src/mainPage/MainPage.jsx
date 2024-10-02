@@ -1,30 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function MainPage() {
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchTrackData = async () => {
-        const url = 'https://spotify23.p.rapidapi.com/tracks/?ids=4WNcduiCmDNfmTEz7JvmLv';
-        const options = {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-key': 'f1b63c07a5msha110197a6a5589dp1633dcjsn7a4306dd04b6',
-                'x-rapidapi-host': 'spotify23.p.rapidapi.com'
+    useEffect(() => {
+        const fetchTrackData = async () => {
+            setIsLoading(true);
+            const url = 'https://restcountries.com/v3.1/all';
+        
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoading(false);
             }
         };
-    
-        try {
-            const response = await fetch(url, options);
-            const result = await response.text();
-            console.log(result);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false)
-        }
-    };
-    
-    fetchTrackData();
+        fetchTrackData();
+    }, []);
     
 
     return (
