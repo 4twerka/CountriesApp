@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import BurgerMenu from "../burgerMenu/BurgenMenu";
 
 function MainPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [countries, setCountries] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
     const [isToggle, setIsToggle] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+
+    const HandleInputValue = (e) => {
+      setInputValue(e.target.value);
+    }
 
     const HandleToggle = () => {
       setIsToggle(!isToggle);
@@ -84,7 +88,7 @@ function MainPage() {
     )}
 
       {/* Hero Section */}
-      <section className="bg-cover bg-center h-screen" style={{ backgroundImage: 'url(https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMm5sd2V1anIxY3VhNWplampxMXd4b2g4bjRsMGZtNjRweXBwN3djOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1zRdobfLq13t8BuL72/giphy.webp)' }}>
+      <section className="bg-cover bg-center h-screen" style={{ backgroundImage: 'url(https://i.pinimg.com/originals/99/f9/5e/99f95ee41c3def28268cc3877f103daf.gif)' }}>
         <div className="bg-black bg-opacity-50 h-full flex items-center justify-center">
           <h2 className="text-4xl md:text-6xl font-extrabold text-white text-center">
             Explore the Countries of the World
@@ -98,7 +102,7 @@ function MainPage() {
           <div className="container mx-auto px-6">
             <h3 className="text-3xl font-bold text-gray-800 text-center mb-10">Featured Countries</h3>
             <div className="flex justify-center items-center">
-            <input type="text" className="pl-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-full sm:w-96" placeholder="Search country" />
+            <input type="text" className="pl-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-full sm:w-96" placeholder="Search country" value={inputValue} onChange={HandleInputValue}/>
 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" id="country">
