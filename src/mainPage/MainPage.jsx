@@ -6,9 +6,17 @@ function MainPage() {
     const [isMobile, setIsMobile] = useState(false);
     const [isToggle, setIsToggle] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [searchCountries, setSearchCountries] = useState([]);
 
     const HandleInputValue = (e) => {
-      setInputValue(e.target.value);
+      const value = e.target.value;
+      setInputValue(value);
+
+      const searchResult = countries.filter((country) => {
+        return country.name.common.toLowerCase().startsWith(value.toLowerCase());
+      });
+
+      setSearchCountries(searchResult);
     }
 
     const HandleToggle = () => {
@@ -45,7 +53,7 @@ function MainPage() {
       return () => window.removeEventListener('resize', PhoneFunc);
     }, []);
     
-
+    const commonCountries = !inputValue ? countries : searchCountries;
     return (
       <div className="bg-gray-50 min-h-screen flex flex-col">
       {/* Header */}
@@ -102,12 +110,14 @@ function MainPage() {
           <div className="container mx-auto px-6">
             <h3 className="text-3xl font-bold text-gray-800 text-center mb-10">Featured Countries</h3>
             <div className="flex justify-center items-center">
-            <input type="text" className="pl-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-full sm:w-96" placeholder="Search country" value={inputValue} onChange={HandleInputValue}/>
+            <input type="text"
+             className="pl-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-full sm:w-96"
+              placeholder="Search country" value={inputValue} onChange={HandleInputValue}/>
 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" id="country">
-                  {countries.length > 0 ? (
-                    countries.map((country, index) => {
+                  {commonCountries.length > 0 ? (
+                    commonCountries.map((country, index) => {
                       return (
                           <div key={index} className="bg-gray-100 p-6 rounded-lg shadow-lg">
                               <a href={country.maps.googleMaps}>
