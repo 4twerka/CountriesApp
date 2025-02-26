@@ -20,7 +20,7 @@ function MainPage() {
     }
 
     const HandleToggle = () => {
-      setIsToggle(!isToggle);
+      setIsToggle((prev) => !prev);
     }
 
     useEffect(() => {
@@ -53,6 +53,7 @@ function MainPage() {
     }, []);
     
     const scrollToCountries = () => {
+      setIsToggle(false);
       document.getElementById("country-section").scrollIntoView({ behavior: "smooth" });
     };
     
@@ -74,6 +75,38 @@ function MainPage() {
           </nav>
         </div>
       </header>
+
+      {isToggle && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-2xl shadow-lg w-80 text-center animate-fadeIn">
+            <h2 className="text-xl font-semibold mb-4">Menu</h2>
+            <ul className="space-y-4">
+              <li
+                className="text-gray-700 hover:text-blue-500 transition cursor-pointer"
+                onClick={scrollToCountries}
+              >
+                Countries
+              </li>
+              <li>
+                <a
+                  className="text-gray-700 hover:text-blue-500 transition cursor-pointer"
+                  href="https://github.com/4twerka"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  My Github
+                </a>
+              </li>
+            </ul>
+            <button
+              onClick={() => setIsToggle(false)}
+              className="mt-6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <section className="bg-cover bg-center h-screen" style={{ backgroundImage: 'url(https://i.pinimg.com/originals/99/f9/5e/99f95ee41c3def28268cc3877f103daf.gif)' }}>
         <div className="bg-black bg-opacity-50 h-full flex items-center justify-center">
